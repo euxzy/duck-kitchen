@@ -5,24 +5,14 @@ public class Player : MonoBehaviour {
     private bool isWalking;
 
     private void Update() {
-        Vector2 inputVector = new(0, 0);
+        PlayerMovement();
+    }
 
-        if (Input.GetKey(KeyCode.W)) {
-            inputVector.y += 1;
-        }
-        if (Input.GetKey(KeyCode.S)) {
-            inputVector.y -= 1;
-        }
-        if (Input.GetKey(KeyCode.A)) {
-            inputVector.x -= 1;
-        }
-        if (Input.GetKey(KeyCode.D)) {
-            inputVector.x += 1;
-        }
+    private void PlayerMovement() {
+        float inputAD = Input.GetAxis("Horizontal");
+        float inputWS = Input.GetAxis("Vertical");
 
-        inputVector = inputVector.normalized;
-
-        Vector3 moveDirection = new(inputVector.x, 0, inputVector.y);
+        Vector3 moveDirection = new(inputAD, 0, inputWS);
         transform.position += moveSpeed * Time.deltaTime * moveDirection;
 
         isWalking = moveDirection != Vector3.zero;
